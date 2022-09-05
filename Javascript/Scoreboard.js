@@ -11,6 +11,7 @@ document.getElementById('player2scorecell').addEventListener('click', player2cli
 document.getElementById('player2scorecell').addEventListener('touchStart', player2clicked);
 
 document.getElementById('newgame').addEventListener('click', reinitialize);
+document.getElementById('newgame').addEventListener('touchStart', reinitialize);
 
 function gameIsOver(){
     return getScore('player1score') == MAX_SCORE || getScore('player2score') == MAX_SCORE;
