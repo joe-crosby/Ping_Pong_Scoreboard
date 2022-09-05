@@ -1,0 +1,89 @@
+html, body {
+    height: 100vh;
+    margin: 0 auto;
+}
+
+body {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.container {
+    height: 90%;
+    display: grid;
+    gap: .5rem;
+    place-items: center;
+    grid-template-rows: .5fr 3.5fr;
+    grid-template-columns: auto auto;
+}
+
+.span {
+    grid-column: 1 / span 2;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.block {
+    display: block;
+}
+
+.score-cell-serving {
+    width: 100%;
+    height: 100%;
+    background-color: #1bc970; 
+    border: 2rem;
+    border-color: #FFFFFF;
+    border-radius: 10%;
+}
+
+.score-cell {
+    width: 100%;
+    height: 100%;
+    background-color: #000000; 
+    border: 2rem;
+    border-color: #FFFFFF;
+    border-radius: 10%;
+}
+
+.score {
+    width: 100%;
+    min-width: 10rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8em;
+    color: #FFFFFF;
+}
+
+.title {
+    font-size: xx-large;
+}
+
+.infotray {
+    display: grid;
+    gap: .5rem;
+    margin-top: 1rem;
+    place-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#newgame {
+    background-color: #5d6860;
+    color: #FFFFFF;
+    border-radius: 10%;
+    height: 2rem;
+    width: 6rem;
+}
+
+/* Disable highlighting */
+* {
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+}
