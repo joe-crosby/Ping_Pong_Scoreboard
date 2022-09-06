@@ -30,8 +30,6 @@ let totalServes = 0;
 let maxScore = 0;
 let maxServes = 0;
 
-reinitialize();
-
 function gameIsOver(){
     return player1.score == maxScore || player2.score == maxScore;
 }
@@ -88,9 +86,9 @@ function reinitialize() {
 
 function toggleEnabled(){
     let disabled = (player1.score > 0 || player2.score > 0);
-    document.getElementById('switch-server').disabled = disabled;
-    document.getElementById('max-score-drop-down').disabled = disabled;
-    document.getElementById('max-serves-drop-down').disabled = disabled;
+    switchServerBtn.disabled = disabled;
+    maxScoreSelect.disabled = disabled;
+    maxServesSelect.disabled = disabled;
 }
 
 function switchServer(e){
@@ -111,3 +109,5 @@ function maxServesChanged(e) {
     
     maxServes = parseInt(e.target.value);
 }
+
+reinitialize();
