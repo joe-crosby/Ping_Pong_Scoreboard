@@ -1,52 +1,66 @@
-const MAX_SCORE = 21
-const MAX_SERVES = 5
+let p1Cell = document.getElementById('player1-scorecell');
+let p2Cell = document.getElementById('player2-scorecell');
+let newGameBtn = document.getElementById('new-game');
+let switchServerBtn = document.getElementById('switch-server');
+let maxScoreSelect = document.getElementById('max-score-drop-down');
+let maxServesSelect = document.getElementById('max-serves-drop-down');
+
+let maxScore = parseInt(maxScoreSelect.value);
+let maxServes = parseInt(maxServesSelect.value);
 
 let totalServes = 1;
 
-let p1cell = document.getElementById('player1scorecell');
-let p2cell = document.getElementById('player2scorecell');
-let newgamebtn = document.getElementById('newgame');
-
 /* Add events */
-p1cell.addEventListener('click', player1clicked);
-p1cell.addEventListener('touchStart', player1clicked);
+p1Cell.addEventListener('click', player1Clicked);
+p1Cell.addEventListener('touchStart', player1Clicked);
 
-p2cell.addEventListener('click', player2clicked);
-p2cell.addEventListener('touchStart', player2clicked);
+p2Cell.addEventListener('click', player2Clicked);
+p2Cell.addEventListener('touchStart', player2Clicked);
 
-newgamebtn.addEventListener('click', reinitialize);
-newgamebtn.addEventListener('touchStart', reinitialize);
+newGameBtn.addEventListener('click', reinitialize);
+newGameBtn.addEventListener('touchStart', reinitialize);
+
+switchServerBtn.addEventListener('click', switchServer);
+switchServerBtn.addEventListener('touchStart', reinitialize);
+
+maxScoreSelect.addEventListener('change', maxScoreChanged);
+
+maxServesSelect.addEventListener('change', maxServesChanged);
 
 /* create players */
-let player1 = new PingPongPlayer(p1cell, 'Player 1', true);
-let player2 = new PingPongPlayer(p2cell, 'Player 2');
+let player1 = new PingPongPlayer(p1Cell, 'Player 1', true);
+let player2 = new PingPongPlayer(p2Cell, 'Player 2');
 
 function gameIsOver(){
-    return player1.score == MAX_SCORE || player2.score == MAX_SCORE;
+    return player1.score == maxScore || player2.score == maxScore;
 }
 
-function player1clicked(e) {
+function player1Clicked(e) {
     e.preventDefault();
 
     if (gameIsOver())
         return;
 
     player1.setscore(player1.score += 1);
-    updateTotalServes(player1, 'player1score')
+    updateTotalServes(player1, 'player1-score')
+
+    toggleEnabled();
 }
 
-function player2clicked(e) {
+function player2Clicked(e) {
     e.preventDefault();
 
     if (gameIsOver())
         return;
 
     player2.setscore(player2.score += 1);
-    updateTotalServes(player2, 'player2score')
+    updateTotalServes(player2, 'player2-score')
+
+    toggleEnabled();
 }
 
 function updateTotalServes(player, id){
-    if (totalServes % MAX_SERVES == 0){
+    if (totalServes % maxServes == 0){
         player1.setisserving(!player1.isserving);
         player2.setisserving(!player2.isserving);
     }
@@ -62,4 +76,28 @@ function reinitialize(e) {
     player2.reinitialize();
 
     totalServes = 1;
+
+    toggleEnabled();
+}
+
+function toggleEnabled(){
+    let disabled = (player1.score > 0 || player2.score > 0);
+    document.getElementById('switch-server').disabled = disabled;
+    document.getElementById('max-score-drop-down').disabled = disabled;
+    document.getElementById('max-serves-drop-down').disabled = disabled;
+}
+
+function switchServer(e){
+    e.preventDefault();
+
+    player1.setisserving(!player1.isserving);
+    player2.setisserving(!player2.isserving);
+}
+
+function maxScoreChanged(e) {
+    maxScore = parseInt(e.target.value);
+}
+
+function maxServesChanged(e) {
+    maxServes = parseInt(e.target.value);
 }

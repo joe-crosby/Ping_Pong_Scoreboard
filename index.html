@@ -14,18 +14,34 @@
            <div class="title">Player 1</div>
            <div class="title">Player 2</div>
 
-           <div id="player1scorecell" class="score-cell-serving">
-            <label id="player1score" class="score">0</label>
+           <div id="player1-scorecell" class="score-cell-serving">
+            <label id="player1-score" class="score">0</label>
            </div>
-           <div id="player2scorecell" class="score-cell">
-            <label id="player2score" class="score">0</label>
+           <div id="player2-scorecell" class="score-cell">
+            <label id="player2-score" class="score">0</label>
            </div>
         </div>
-        <div class="infotray">
-            <button id="newgame">New Game</button>
+        <div class="info-tray">
+            <button id="new-game">New Game</button>
             <div class="flex-row">
-                <label class="block">Winning Score:&nbsp;</label>
-                <label class="block">21</label>
+                <label class="flex-center" for="max-score" class="block">Winning Score:&nbsp;</label>
+                <select id="max-score-drop-down" name="max_score">
+                    <option value="21">21</option>
+                    <option value="11">11</option>
+                </select>
+            </div>
+            <div class="flex-row">
+                <label class="flex-center" for="max-serves" class="block">Number of Serves:&nbsp;</label>
+                <select id="max-serves-drop-down" name="max_serves">
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+            </div>
+            <div class="flex-row">
+                <button id="switch-server">Switch Server</button>
             </div>
         </div>
     </body>

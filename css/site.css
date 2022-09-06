@@ -26,6 +26,12 @@ body {
     flex-direction: row;
 }
 
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .block {
     display: block;
 }
@@ -61,22 +67,33 @@ body {
 
 .title {
     font-size: xx-large;
+    font-weight: bolder;
 }
 
-.infotray {
+.info-tray {
     display: grid;
     gap: .5rem;
     margin-top: 1rem;
     place-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-#newgame {
-    background-color: #5d6860;
+button {
+    background-color: #35a151;
+    background-color: #1bc970;
     color: #FFFFFF;
+    font-size: large;
     border-radius: 10%;
     height: 3rem;
-    width: 7rem;
+    width: 9rem;
+}
+
+button:disabled{
+    background-color: #5d6860;
+}
+
+#max-score-drop-down, #max-serves-drop-down {
+    font-size: xx-large;
 }
 
 /* Disable highlighting */
