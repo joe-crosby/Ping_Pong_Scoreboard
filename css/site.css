@@ -70,7 +70,7 @@ body {
     font-weight: bolder;
 }
 
-.info-tray {
+.option-tray {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
