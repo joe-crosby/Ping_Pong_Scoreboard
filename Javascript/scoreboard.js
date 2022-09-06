@@ -34,6 +34,17 @@ function gameIsOver(){
     return player1.score == maxScore || player2.score == maxScore;
 }
 
+function setWinnerUI(){
+    if (player1.score == maxScore){
+        p1Cell.classList.add('winner');
+        p2Cell.classList.remove('winner');
+    }
+    else if (player2.score == maxScore){
+        p2Cell.classList.add('winner');
+        p1Cell.classList.remove('winner');
+    }
+}
+
 function player1Clicked(e) {
     e.preventDefault();
 
@@ -41,9 +52,11 @@ function player1Clicked(e) {
         return;
 
     player1.setscore(player1.score += 1);
-    updateTotalServes(player1, 'player1-score')
+    updateTotalServes()
 
     toggleEnabled();
+    
+    setWinnerUI();
 }
 
 function player2Clicked(e) {
@@ -53,12 +66,14 @@ function player2Clicked(e) {
         return;
 
     player2.setscore(player2.score += 1);
-    updateTotalServes(player2, 'player2-score')
+    updateTotalServes()
 
     toggleEnabled();
+
+    setWinnerUI();
 }
 
-function updateTotalServes(player, id){
+function updateTotalServes(){
     totalServes += 1;
 
     if (totalServes % maxServes == 0){

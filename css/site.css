@@ -95,6 +95,28 @@ button:disabled{
     font-size: xx-large;
 }
 
+.winner {
+    animation: win 3s forwards;
+}
+
+@keyframes win {
+    0%{
+        background-color: crimson;
+    }
+    25%{
+        background-color: rgb(60, 29, 170);
+    }
+    50%{
+        background-color: rgb(20, 220, 37);
+    }
+    75%{
+        background-color: rgb(20, 163, 220);
+    }
+    100%{
+        background-color: rgb(243, 4, 4);
+    }
+}
+
 /* Disable highlighting */
 * {
     user-select: none; /* supported by Chrome and Opera */
