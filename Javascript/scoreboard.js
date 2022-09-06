@@ -5,11 +5,6 @@ let switchServerBtn = document.getElementById('switch-server');
 let maxScoreSelect = document.getElementById('max-score-drop-down');
 let maxServesSelect = document.getElementById('max-serves-drop-down');
 
-let maxScore = parseInt(maxScoreSelect.value);
-let maxServes = parseInt(maxServesSelect.value);
-
-let totalServes = 0;
-
 /* Add events */
 p1Cell.addEventListener('click', player1Clicked);
 p1Cell.addEventListener('touchStart', player1Clicked);
@@ -30,6 +25,12 @@ maxServesSelect.addEventListener('change', maxServesChanged);
 /* create players */
 let player1 = new PingPongPlayer(p1Cell, 'Player 1', true);
 let player2 = new PingPongPlayer(p2Cell, 'Player 2');
+
+let totalServes = 0;
+let maxScore = 0;
+let maxServes = 0;
+
+reinitialize();
 
 function gameIsOver(){
     return player1.score == maxScore || player2.score == maxScore;
@@ -74,9 +75,12 @@ function reinitialize(e) {
     player1.reinitialize(true);
     player2.reinitialize();
 
-    totalServes = 1;
+    totalServes = 0;
 
     toggleEnabled();
+
+    maxScore = parseInt(maxScoreSelect.value);
+    maxServes = parseInt(maxServesSelect.value);
 }
 
 function toggleEnabled(){
