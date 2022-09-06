@@ -12,11 +12,11 @@ p1Cell.addEventListener('touchStart', player1Clicked);
 p2Cell.addEventListener('click', player2Clicked);
 p2Cell.addEventListener('touchStart', player2Clicked);
 
-newGameBtn.addEventListener('click', reinitialize);
-newGameBtn.addEventListener('touchStart', reinitialize);
+newGameBtn.addEventListener('click', newGame);
+newGameBtn.addEventListener('touchStart', newGame);
 
 switchServerBtn.addEventListener('click', switchServer);
-switchServerBtn.addEventListener('touchStart', reinitialize);
+switchServerBtn.addEventListener('touchStart', switchServer);
 
 maxScoreSelect.addEventListener('change', maxScoreChanged);
 
@@ -69,9 +69,12 @@ function updateTotalServes(player, id){
     }
 }
 
-function reinitialize(e) {
+function newGame(e) {
     e.preventDefault();
+    reinitialize();
+}
 
+function reinitialize() {
     player1.reinitialize(true);
     player2.reinitialize();
 
