@@ -37,10 +37,12 @@ function gameIsOver(){
 function setWinnerUI(){
     if (player1.score == maxScore){
         p1Cell.classList.add('winner');
+        p1Cell.children[0].innerHTML = "";
         p2Cell.classList.remove('winner');
     }
     else if (player2.score == maxScore){
         p2Cell.classList.add('winner');
+        p2Cell.children[0].innerHTML = "";
         p1Cell.classList.remove('winner');
     }
 }
