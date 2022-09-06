@@ -71,11 +71,10 @@ body {
 }
 
 .info-tray {
-    display: grid;
-    gap: .5rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
     margin-top: 1rem;
-    place-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 button {
