@@ -8,7 +8,7 @@ let maxServesSelect = document.getElementById('max-serves-drop-down');
 let maxScore = parseInt(maxScoreSelect.value);
 let maxServes = parseInt(maxServesSelect.value);
 
-let totalServes = 1;
+let totalServes = 0;
 
 /* Add events */
 p1Cell.addEventListener('click', player1Clicked);
@@ -60,13 +60,12 @@ function player2Clicked(e) {
 }
 
 function updateTotalServes(player, id){
+    totalServes += 1;
+
     if (totalServes % maxServes == 0){
         player1.setisserving(!player1.isserving);
         player2.setisserving(!player2.isserving);
     }
-        
-
-    totalServes += 1;
 }
 
 function reinitialize(e) {
@@ -95,9 +94,13 @@ function switchServer(e){
 }
 
 function maxScoreChanged(e) {
+    e.preventDefault();
+
     maxScore = parseInt(e.target.value);
 }
 
 function maxServesChanged(e) {
+    e.preventDefault();
+    
     maxServes = parseInt(e.target.value);
 }
