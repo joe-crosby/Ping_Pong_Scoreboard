@@ -19,12 +19,8 @@ switchServerBtn.addEventListener('click', switchServer);
 switchServerBtn.addEventListener('touchStart', switchServer);
 
 maxScoreSelect.addEventListener('change', maxScoreChanged);
-/* reset the index in case the values are cached in mobile browsers */
-maxScoreSelect.selectedIndex = 0;
 
 maxServesSelect.addEventListener('change', maxServesChanged);
-/* reset the index in case the values are cached in mobile browsers */
-maxServesSelect.selectedIndex = 0;
 
 /* create players */
 let player1 = new PingPongPlayer(p1Cell, 'Player 1', true);
@@ -131,4 +127,13 @@ function maxServesChanged(e) {
     maxServes = parseInt(e.target.value);
 }
 
-reinitialize();
+/* do not initialize until the page is fully rendered */
+if (document.readyState == 'complete') {
+    reinitialize();
+} else {
+    document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+            reinitialize();
+        }
+    }
+}
