@@ -19,8 +19,12 @@ switchServerBtn.addEventListener('click', switchServer);
 switchServerBtn.addEventListener('touchStart', switchServer);
 
 maxScoreSelect.addEventListener('change', maxScoreChanged);
+/* reset the index in case the values are cached in mobile browsers */
+maxScoreSelect.selectedIndex = 0;
 
 maxServesSelect.addEventListener('change', maxServesChanged);
+/* reset the index in case the values are cached in mobile browsers */
+maxServesSelect.selectedIndex = 0;
 
 /* create players */
 let player1 = new PingPongPlayer(p1Cell, 'Player 1', true);

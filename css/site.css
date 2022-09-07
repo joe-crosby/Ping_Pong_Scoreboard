@@ -96,7 +96,10 @@ button:disabled{
 }
 
 .winner {
-    background-image: url(../Images/winner.gif)
+    background-image: url(../Images/winner.gif);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 /* Disable highlighting */
