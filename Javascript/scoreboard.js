@@ -30,6 +30,8 @@ let totalServes = 0;
 let maxScore = 0;
 let maxServes = 0;
 
+reinitialize();
+
 function gameIsOver(){
     return player1.score == maxScore || player2.score == maxScore;
 }
@@ -125,15 +127,4 @@ function maxServesChanged(e) {
     e.preventDefault();
     
     maxServes = parseInt(e.target.value);
-}
-
-/* do not initialize until the page is fully rendered */
-if (document.readyState == 'complete') {
-    reinitialize();
-} else {
-    document.onreadystatechange = function () {
-        if (document.readyState === "complete") {
-            reinitialize();
-        }
-    }
 }
