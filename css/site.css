@@ -14,7 +14,7 @@ body {
     gap: .5rem;
     place-items: center;
     grid-template-rows: .5fr 3.5fr;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto .3fr auto;
 }
 
 .span {
@@ -100,6 +100,32 @@ button:disabled{
     background-size: cover;
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+
+#total-scores-table {
+    vertical-align: top;
+}
+
+#total-scores-table td, tr {
+    vertical-align: top;
+    min-width: 3em;
+}
+
+#total-scores-table td, th{
+    text-align: center;
+}
+
+#total-scores-table th{
+    text-align: center;
+    border-bottom: 1pt solid black;
+}
+
+#total-scores-table th:first-child{
+    text-align: left;
+}
+
+#total-scores-table td:first-child{
+    text-align: left;
 }
 
 /* Disable highlighting */

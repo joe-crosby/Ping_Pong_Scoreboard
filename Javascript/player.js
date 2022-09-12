@@ -1,31 +1,16 @@
-/*  A ping pong player class to control an HTML element, 
-    with a child element that is used to display the score. */
-class PingPongPlayer{
-    constructor(element, name, isserving=false){
-        this.scorecell = element;
+class Player{
+    constructor(name){
+        this.id = Date.now() + Math.floor(((Math.random() + 1) * 10));
         this.name = name;
         this.score = 0;
-        this.isserving = isserving;
-    }
-
-    setisserving(isserving){
-        this.isserving = isserving;
-
-        if (this.isserving){
-            this.scorecell.className = 'score-cell-serving';
-        }
-        else {
-            this.scorecell.className = 'score-cell';
-        }
+        this.gamesWon = 0;
     }
 
     setscore(score){
         this.score = score;
-        this.scorecell.children[0].innerText = this.score;
     }
 
-    reinitialize(isserving=false){
-        this.setisserving(isserving)
+    reinitialize(){
         this.setscore(0);
     }
 }
