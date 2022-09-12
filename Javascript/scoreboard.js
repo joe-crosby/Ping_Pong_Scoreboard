@@ -15,7 +15,7 @@ let switchServerBtn = document.getElementById('switch-server');
 let maxScoreSelect = document.getElementById('max-score-drop-down');
 let maxServesSelect = document.getElementById('max-serves-drop-down');
 
-let totalScoresTable = document.getElementById('total-scores-table');
+let totalScoresTable = document.getElementById('games-won-table');
 
 /* Add events */
 p1Cell.addEventListener('click', player1Clicked);

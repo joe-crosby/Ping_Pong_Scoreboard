@@ -14,7 +14,7 @@ body {
     gap: .5rem;
     place-items: center;
     grid-template-rows: .5fr 3.5fr;
-    grid-template-columns: auto .3fr auto;
+    grid-template-columns: auto auto .3fr;
 }
 
 .span {
@@ -102,29 +102,29 @@ button:disabled{
     background-size: 100% 100%;
 }
 
-#total-scores-table {
-    vertical-align: top;
+#totals{
+    height: 100%;
 }
 
-#total-scores-table td, tr {
+#games-won-table td, tr {
     vertical-align: top;
     min-width: 3em;
 }
 
-#total-scores-table td, th{
+#games-won-table td, th{
     text-align: center;
 }
 
-#total-scores-table th{
+#games-won-table th{
     text-align: center;
     border-bottom: 1pt solid black;
 }
 
-#total-scores-table th:first-child{
+#games-won-table th:first-child{
     text-align: left;
 }
 
-#total-scores-table td:first-child{
+#games-won-table td:first-child{
     text-align: left;
 }
 
