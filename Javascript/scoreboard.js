@@ -216,6 +216,9 @@ function reinitialize(newGame = false) {
     maxScore = parseInt(maxScoreSelect.value);
     maxServes = parseInt(maxServesSelect.value);
 
+    maxScoresSelect.selectedIndex = "0";
+    maxServesSelect.selectedIndex = "0";
+
     totalServes = 0;
     
     if (winner){
