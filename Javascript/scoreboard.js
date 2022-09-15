@@ -44,6 +44,8 @@ let totalServes = 0;
 let maxScore = 0;
 let maxServes = 0;
 
+updateMaxValues();
+
 reinitialize();
 
 createGamesWon();
@@ -108,36 +110,32 @@ function setWinnerUI(){
 function player1Clicked(e) {
     e.preventDefault();
 
+    playerClicked(player1);
+}
+
+function player2Clicked(e) {
+    e.preventDefault();
+
+    playerClicked(player2);
+}
+
+function playerClicked(player) {
     if (gameIsOver())
         return;
 
-    player1.setscore(player1.score += 1);
+    player.setscore(player.score += 1);
     updateScore();
     updateTotalServes()
+    updateMaxValues();
 
     toggleEnabled();
-    
+
     setWinnerUI();
 }
 
 function updateScore(){
     p1Cell.children[0].innerText = player1.score;
     p2Cell.children[0].innerText = player2.score;
-}
-
-function player2Clicked(e) {
-    e.preventDefault();
-
-    if (gameIsOver())
-        return;
-
-    player2.setscore(player2.score += 1);
-    updateScore();
-    updateTotalServes()
-
-    toggleEnabled();
-
-    setWinnerUI();
 }
 
 function updateTotalServes(){
@@ -213,9 +211,6 @@ function reinitialize(newGame = false) {
     p1Name.innerHTML = player1.name;
     p2Name.innerHTML = player2.name;
 
-    maxScore = parseInt(maxScoreSelect.value);
-    maxServes = parseInt(maxServesSelect.value);
-
     totalServes = 0;
     
     if (winner){
@@ -226,6 +221,11 @@ function reinitialize(newGame = false) {
     winner = null;
     toggleEnabled();
     updateScore();
+}
+
+function updateMaxValues(){
+    maxScore = parseInt(maxScoreSelect.value);
+    maxServes = parseInt(maxServesSelect.value);
 }
 
 function toggleEnabled(){
