@@ -4,10 +4,19 @@ Array.prototype.random = function () {
 }
 
 String.prototype.toTitle = function () {
-    if (this.trim().length < 2)
-        return this.replace(this[0], this[0].toUpperCase())
+    let words = this.split(' ');
 
-    return this.split(' ').map(x => x.toLowerCase().replace(x[0], x[0].toUpperCase())).join(' ');
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substring(1);
+    }
+    
+    return words.join(" ");
+
+    /* Not working for the first word on mobile devices */
+    // if (this.trim().length < 2)
+    //     return this.replace(this[0], this[0].toUpperCase())
+
+    // return this.split(' ').map(x => x.toLowerCase().replace(x[0], x[0].toUpperCase())).join(' ');
 }
 
 function map(str){
@@ -344,7 +353,7 @@ function playersAreSet(){
 function newPlayerEnterPressed(e){
     if (e.keyCode == 13) {
         e.preventDefault();
-        e.target.blur();
+        document.activeElement.blur();
         addPlayer(e.target.value);
     }
 }
@@ -386,7 +395,7 @@ function addPlayer(name){
 
 function focusNewPlayerTb(){
     newPlayerNameTb.value = null;
-    newPlayerNameTb.focus();
+    addPlayerBtn.focus();
 }
 
 function deleteUser_clicked(e){
