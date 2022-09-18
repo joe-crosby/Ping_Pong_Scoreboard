@@ -8,6 +8,22 @@ body {
     padding-left: 1rem;
 }
 
+.flex-row, .new-players-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.new-players-row > button {
+    margin: .5em;
+    background-color: #35a151;
+    background-color: #1bc970;
+    color: #FFFFFF;
+    font-size: large;
+    border-radius: 10%;
+    height: 2rem;
+    width: 4.5rem;
+}
+
 .container {
     height: 80%;
     display: grid;

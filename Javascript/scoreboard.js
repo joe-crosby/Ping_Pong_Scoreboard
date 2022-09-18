@@ -15,6 +15,10 @@ let switchServerBtn = document.getElementById('switch-server');
 let maxScoreSelect = document.getElementById('max-score-drop-down');
 let maxServesSelect = document.getElementById('max-serves-drop-down');
 
+let newPlayerNameTb = document.getElementById('new-player-name-tb');
+let addPlayerBtn = document.getElementById('add-player-btn');
+let clearPlayersBtn = document.getElementById('clear-players-btn');
+
 let totalScoresTable = document.getElementById('games-won-table');
 
 /* Add events */
@@ -33,6 +37,12 @@ switchServerBtn.addEventListener('touchStart', switchServer);
 maxScoreSelect.addEventListener('change', maxScoreChanged);
 
 maxServesSelect.addEventListener('change', maxServesChanged);
+
+addPlayerBtn.addEventListener('click', addPlayerClicked);
+addPlayerBtn.addEventListener('touchStart', addPlayerClicked);
+
+clearPlayersBtn.addEventListener('click', clearPlayersClicked);
+clearPlayersBtn.addEventListener('touchStart', clearPlayersClicked);
 
 /* create players */
 let player1 = players[0];
@@ -55,6 +65,8 @@ function gameIsOver(){
 }
 
 function createGamesWon(){
+    totalScoresTable.innerHTML = null;
+
     for (var i = -1; i < players.length; i++){
         let r = document.createElement("tr");
 
@@ -110,13 +122,15 @@ function setWinnerUI(){
 function player1Clicked(e) {
     e.preventDefault();
 
-    playerClicked(player1);
+    if (player1 != null)
+        playerClicked(player1);
 }
 
 function player2Clicked(e) {
     e.preventDefault();
 
-    playerClicked(player2);
+    if (player2 != null)
+        playerClicked(player2);
 }
 
 function playerClicked(player) {
@@ -205,11 +219,21 @@ function shufflePlayers(){
 }
 
 function reinitialize(newGame = false) {
-    player1.reinitialize();
-    player2.reinitialize();
+    if (player1 != null) {
+        player1.reinitialize();
+        p1Name.innerHTML = player1.name;
+    }
+    else{
+        p1Name.innerHTML = null;
+    }
 
-    p1Name.innerHTML = player1.name;
-    p2Name.innerHTML = player2.name;
+    if (player2 != null){
+        player2.reinitialize();
+        p2Name.innerHTML = player2.name;
+    }
+    else{
+        p2Name.innerHTML = null;
+    }
 
     totalServes = 0;
     
@@ -229,6 +253,9 @@ function updateMaxValues(){
 }
 
 function toggleEnabled(){
+    if (player1 == null || player2 == null)
+        return;
+
     let disabled = (player1.score > 0 || player2.score > 0);
     switchServerBtn.disabled = disabled;
     maxScoreSelect.disabled = disabled;
@@ -250,4 +277,42 @@ function maxServesChanged(e) {
     e.preventDefault();
     
     maxServes = parseInt(e.target.value);
+}
+
+function addPlayerClicked(e){
+    e.preventDefault();
+
+    addPlayer(newPlayerNameTb.value)
+}
+
+function clearPlayersClicked(e){
+    e.preventDefault();
+
+    clearPlayers()
+}
+
+function addPlayer(name){
+    players.push(new Player(name))
+
+    if (players.length > 0 && player1 == null){
+        player1 = players[0]
+    }
+
+    if (players.length > 1 && player2 == null){
+        player2 = players[1]
+    }
+
+    createGamesWon();
+
+    if (players.length > 1){
+        reinitialize();
+    }
+}
+
+function clearPlayers(){
+    players = [];
+    player1 = null;
+    player2 = null;
+    createGamesWon();
+    reinitialize();
 }

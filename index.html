@@ -29,14 +29,22 @@
             <label id="player2-score" class="score">0</label>
            </div>
            <div id="totals">
+            <div class="new-players">
+                <label for="new-player-name-tb">New Player Name</label>
+                <input id="new-player-name-tb" type="text">
+                <div class="new-players-row">               
+                    <button id="add-player-btn">Add</button>
+                    <button id="clear-players-btn">Clear</button>
+                </div>
+            </div>
             <table id="games-won-table"></table>
            </div>
         </div>
         <div class="option-tray">
             <div>
                 <button id="new-game" class="block">New Game</button>
-                <input hidden id="new-opponent-cb" type="checkbox">
-                <label hidden for="new-opponent-cb">New Opponent</label>
+                <input id="new-opponent-cb" type="checkbox">
+                <label for="new-opponent-cb">New Opponent</label>
             </div>
             <div class="flex-row">
                 <label class="flex-center" for="max-score" class="block">Winning Score:&nbsp;</label>
