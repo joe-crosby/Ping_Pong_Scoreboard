@@ -3,6 +3,18 @@ Array.prototype.random = function () {
     return this[Math.floor((Math.random()*this.length))];
 }
 
+String.prototype.toTitle = function () {
+    if (this.trim().length < 2)
+        return this.replace(this[0], this[0].toUpperCase())
+
+    return this.split(' ').map(x => x.toLowerCase().replace(x[0], x[0].toUpperCase())).join(' ');
+}
+
+function map(str){
+    let caps = str.trim().replace(str[0], str[0].toUpperCase())
+    return caps;
+}
+
 let players = [new Player('Player 1'), new Player('Player 2')];
 
 let p1Cell = document.getElementById('player1-scorecell');
@@ -37,6 +49,8 @@ switchServerBtn.addEventListener('touchStart', switchServer);
 maxScoreSelect.addEventListener('change', maxScoreChanged);
 
 maxServesSelect.addEventListener('change', maxServesChanged);
+
+newPlayerNameTb.addEventListener('keypress', newPlayerEnterPressed);
 
 addPlayerBtn.addEventListener('click', addPlayerClicked);
 addPlayerBtn.addEventListener('touchStart', addPlayerClicked);
@@ -327,6 +341,14 @@ function playersAreSet(){
     return (player1 != null && player2 != null);
 }
 
+function newPlayerEnterPressed(e){
+    if (e.keyCode == 13) {
+        e.preventDefault();
+        e.target.blur();
+        addPlayer(e.target.value);
+    }
+}
+
 function addPlayerClicked(e){
     e.preventDefault();
 
@@ -343,7 +365,7 @@ function addPlayer(name){
     if (!name || name.trim().length == 0)
         return;
 
-    players.push(new Player(name));
+    players.push(new Player(name.toTitle()));
 
     if (players.length > 0 && player1 == null){
         player1 = players[0];
@@ -358,6 +380,13 @@ function addPlayer(name){
     if (players.length > 1){
         reinitialize();
     }
+
+    focusNewPlayerTb();
+}
+
+function focusNewPlayerTb(){
+    newPlayerNameTb.value = null;
+    newPlayerNameTb.focus();
 }
 
 function deleteUser_clicked(e){
@@ -395,4 +424,5 @@ function clearPlayers(){
     player2 = null;
     createGamesWon();
     reinitialize();
+    focusNewPlayerTb();
 }
