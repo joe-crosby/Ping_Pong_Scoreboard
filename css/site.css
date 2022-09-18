@@ -29,7 +29,7 @@ body {
     display: grid;
     gap: .5rem;
     place-items: center;
-    grid-template-rows: .5fr 3.5fr;
+    grid-template-rows: 10% 90%;
     grid-template-columns: auto auto .3fr;
 }
 
@@ -127,6 +127,12 @@ button:disabled{
 
 #totals{
     height: 100%;
+}
+
+#games-won-table {
+    display: block;
+    overflow-x: hidden;
+    height: 80%;
 }
 
 #games-won-table td, tr {

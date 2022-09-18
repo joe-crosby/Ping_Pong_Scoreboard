@@ -3,7 +3,7 @@ Array.prototype.random = function () {
     return this[Math.floor((Math.random()*this.length))];
 }
 
-let players = [new Player('Player 1'), new Player('Player 2')]
+let players = [new Player('Player 1'), new Player('Player 2')];
 
 let p1Cell = document.getElementById('player1-scorecell');
 let p2Cell = document.getElementById('player2-scorecell');
@@ -72,27 +72,27 @@ function createGamesWon(){
 
         if (i >= 0){
             // Add the user id to the row
-            r.setAttribute('id', players[i].id)
+            r.setAttribute('id', players[i].id);
 
             let nameCol = document.createElement("td");
             let totalScoreCol = document.createElement("td");
             let deleteCol = document.createElement("td");
             let deleteButton = document.createElement("button");
-            deleteButton.setAttribute('id', players[i].id)
-            deleteButton.classList.add('deleteUserBtn')
-            deleteButton.innerHTML = "x"
+            deleteButton.setAttribute('id', players[i].id);
+            deleteButton.classList.add('deleteUserBtn');
+            deleteButton.innerHTML = "x";
             
-            deleteButton.addEventListener('click', deleteUser_clicked)
-            deleteButton.addEventListener('touchStart', deleteUser_clicked)
+            deleteButton.addEventListener('click', deleteUser_clicked);
+            deleteButton.addEventListener('touchStart', deleteUser_clicked);
 
             deleteCol.appendChild(deleteButton);
 
-            totalScoreCol.setAttribute('id', "games-won")
+            totalScoreCol.setAttribute('id', "games-won");
             nameCol.innerText = players[i].name;
-            totalScoreCol.innerText = players[i].gamesWon
+            totalScoreCol.innerText = players[i].gamesWon;
             r.appendChild(nameCol);
             r.appendChild(totalScoreCol);
-            r.appendChild(deleteCol)
+            r.appendChild(deleteCol);
         }
         else {
             // Add the header
@@ -100,12 +100,13 @@ function createGamesWon(){
             let totalScoreCol = document.createElement("th");
             let deleteCol = document.createElement("td");
             nameCol.innerText = "PLAYER";
-            totalScoreCol.innerText = "WINS"
+            totalScoreCol.innerText = "WINS";
             r.appendChild(nameCol);
             r.appendChild(totalScoreCol);
-            r.appendChild(deleteCol)
+            r.appendChild(deleteCol);
         }
         totalScoresTable.appendChild(r);
+        r.scrollIntoView();
     }
 }
 
@@ -155,7 +156,7 @@ function playerClicked(player) {
 
     player.setscore(player.score += 1);
     updateScore();
-    updateTotalServes()
+    updateTotalServes();
     updateMaxValues();
 
     toggleEnabled();
@@ -281,7 +282,7 @@ function reinitialize(newGame = false) {
     totalServes = 0;
     
     if (winner){
-        currentServer = winner
+        currentServer = winner;
     }
 
     setServer();
@@ -323,33 +324,33 @@ function maxServesChanged(e) {
 }
 
 function playersAreSet(){
-    return (player1 != null && player2 != null)
+    return (player1 != null && player2 != null);
 }
 
 function addPlayerClicked(e){
     e.preventDefault();
 
-    addPlayer(newPlayerNameTb.value)
+    addPlayer(newPlayerNameTb.value);
 }
 
 function clearPlayersClicked(e){
     e.preventDefault();
 
-    clearPlayers()
+    clearPlayers();
 }
 
 function addPlayer(name){
     if (!name || name.trim().length == 0)
         return;
 
-    players.push(new Player(name))
+    players.push(new Player(name));
 
     if (players.length > 0 && player1 == null){
-        player1 = players[0]
+        player1 = players[0];
     }
 
     if (players.length > 1 && player2 == null){
-        player2 = players[1]
+        player2 = players[1];
     }
 
     createGamesWon();
@@ -369,8 +370,7 @@ function deleteUser_clicked(e){
     if (!players.includes(player1)){
         if (player1 == currentServer){
             currentServer = players.filter(x => x.id != player2.id)[0];
-            console.log(currentServer)
-            player1 = currentServer
+            player1 = currentServer;
         }
 
         player1 = players.filter(x => x.id != player2.id)[0];
@@ -379,7 +379,7 @@ function deleteUser_clicked(e){
     if (!players.includes(player2)){
         if (player2 == currentServer){
             currentServer = players.filter(x => x.id != player1.id)[0];
-            player2 = currentServer
+            player2 = currentServer;
         }
 
         player2 = players.filter(x => x.id != player1.id)[0];
