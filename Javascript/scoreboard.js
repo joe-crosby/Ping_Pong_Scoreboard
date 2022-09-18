@@ -71,22 +71,39 @@ function createGamesWon(){
         let r = document.createElement("tr");
 
         if (i >= 0){
+            // Add the user id to the row
+            r.setAttribute('id', players[i].id)
+
             let nameCol = document.createElement("td");
             let totalScoreCol = document.createElement("td");
-            totalScoreCol.setAttribute('id', i + "-games-won")
+            let deleteCol = document.createElement("td");
+            let deleteButton = document.createElement("button");
+            deleteButton.setAttribute('id', players[i].id)
+            deleteButton.classList.add('deleteUserBtn')
+            deleteButton.innerHTML = "x"
+            
+            deleteButton.addEventListener('click', deleteUser_clicked)
+            deleteButton.addEventListener('touchStart', deleteUser_clicked)
+
+            deleteCol.appendChild(deleteButton);
+
+            totalScoreCol.setAttribute('id', "games-won")
             nameCol.innerText = players[i].name;
             totalScoreCol.innerText = players[i].gamesWon
             r.appendChild(nameCol);
             r.appendChild(totalScoreCol);
+            r.appendChild(deleteCol)
         }
         else {
             // Add the header
             let nameCol = document.createElement("th");
             let totalScoreCol = document.createElement("th");
+            let deleteCol = document.createElement("td");
             nameCol.innerText = "PLAYER";
             totalScoreCol.innerText = "WINS"
             r.appendChild(nameCol);
             r.appendChild(totalScoreCol);
+            r.appendChild(deleteCol)
         }
         totalScoresTable.appendChild(r);
     }
@@ -95,8 +112,7 @@ function createGamesWon(){
 function updateGamesWon(){
     let id = null;
     for (var i = 0; i < players.length; i++){
-        id = i + "-games-won";
-        document.getElementById(id).innerText = players[i].gamesWon;
+        document.getElementById(players[i].id).querySelector("#" + "games-won").innerText = players[i].gamesWon;
     }
 }
 
@@ -148,6 +164,9 @@ function playerClicked(player) {
 }
 
 function updateScore(){
+    if (!playersAreSet())
+        return;
+
     p1Cell.children[0].innerText = player1.score;
     p2Cell.children[0].innerText = player2.score;
 }
@@ -192,12 +211,36 @@ function newGame(e) {
     reinitialize();
 }
 
+function getRandomOpponent(){
+    if (players.length > 2){
+        let newOpponent = players.random();
+        while (newOpponent === player1 || newOpponent === player2 || (winner && newOpponent === winner)){
+            newOpponent = players.random();
+        }
+        
+        return newOpponent;
+    }
+    else if (players.length > 1) {
+        let newOpponent = players.random();
+        while (newOpponent === player1 || newOpponent === player2 + newOpponent === player1){
+            newOpponent = players.random();
+        }
+        
+        return newOpponent;
+    }
+
+    return null;
+}
+
 function shufflePlayers(){
     if (newOpponentCb.checked && players.length > 2){
         let newOpponent = players.random();
         while (newOpponent === player1 || newOpponent === player2 || (winner && newOpponent === winner)){
             newOpponent = players.random();
         }
+        
+        if (newOpponent == null)
+            return;
 
         if (winner){
             if (player2 === winner){
@@ -253,7 +296,7 @@ function updateMaxValues(){
 }
 
 function toggleEnabled(){
-    if (player1 == null || player2 == null)
+    if (!playersAreSet())
         return;
 
     let disabled = (player1.score > 0 || player2.score > 0);
@@ -279,6 +322,10 @@ function maxServesChanged(e) {
     maxServes = parseInt(e.target.value);
 }
 
+function playersAreSet(){
+    return (player1 != null && player2 != null)
+}
+
 function addPlayerClicked(e){
     e.preventDefault();
 
@@ -292,6 +339,9 @@ function clearPlayersClicked(e){
 }
 
 function addPlayer(name){
+    if (!name || name.trim().length == 0)
+        return;
+
     players.push(new Player(name))
 
     if (players.length > 0 && player1 == null){
@@ -307,6 +357,36 @@ function addPlayer(name){
     if (players.length > 1){
         reinitialize();
     }
+}
+
+function deleteUser_clicked(e){
+    e.preventDefault();
+    players = players.filter(x => x.id != e.target.id)
+    if (players.length < 1){
+        clearPlayers();
+    }
+
+    if (!players.includes(player1)){
+        if (player1 == currentServer){
+            currentServer = players.filter(x => x.id != player2.id)[0];
+            console.log(currentServer)
+            player1 = currentServer
+        }
+
+        player1 = players.filter(x => x.id != player2.id)[0];
+    }
+
+    if (!players.includes(player2)){
+        if (player2 == currentServer){
+            currentServer = players.filter(x => x.id != player1.id)[0];
+            player2 = currentServer
+        }
+
+        player2 = players.filter(x => x.id != player1.id)[0];
+    }
+
+    createGamesWon();
+    reinitialize();
 }
 
 function clearPlayers(){

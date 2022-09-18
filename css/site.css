@@ -8,7 +8,7 @@ body {
     padding-left: 1rem;
 }
 
-.flex-row, .new-players-row {
+.new-players-row {
     display: flex;
     flex-direction: row;
 }
@@ -107,6 +107,13 @@ button:disabled{
     background-color: #5d6860;
 }
 
+.deleteUserBtn {
+    padding: 0%;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #089f52;
+}
+
 #max-score-drop-down, #max-serves-drop-down {
     font-size: xx-large;
 }
@@ -123,7 +130,7 @@ button:disabled{
 }
 
 #games-won-table td, tr {
-    vertical-align: top;
+    vertical-align: center;
     min-width: 3em;
 }
 
@@ -145,10 +152,12 @@ button:disabled{
 }
 
 /* Disable highlighting */
-* {
-    user-select: none; /* supported by Chrome and Opera */
-   -webkit-user-select: none; /* Safari */
-   -khtml-user-select: none; /* Konqueror HTML */
-   -moz-user-select: none; /* Firefox */
-   -ms-user-select: none; /* Internet Explorer/Edge */
-}
+:not(input) {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
