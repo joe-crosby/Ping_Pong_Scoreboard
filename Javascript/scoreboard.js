@@ -11,12 +11,6 @@ String.prototype.toTitle = function () {
     }
     
     return words.join(" ");
-
-    /* Not working for the first word on mobile devices */
-    // if (this.trim().length < 2)
-    //     return this.replace(this[0], this[0].toUpperCase())
-
-    // return this.split(' ').map(x => x.toLowerCase().replace(x[0], x[0].toUpperCase())).join(' ');
 }
 
 function map(str){

@@ -25,16 +25,26 @@ body {
 }
 
 .container {
-    height: 80%;
+    height: 100%;
     display: grid;
     gap: .5rem;
     place-items: center;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 5% 80% 8%;
     grid-template-columns: auto auto .3fr;
 }
 
-.span {
-    grid-column: 1 / span 2;
+input[type=checkbox] {
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
+}
+
+.font-small {
+    font-size: small;
+}
+
+.mr-auto {
+    margin-right: auto;
 }
 
 .flex-row {
@@ -87,10 +97,11 @@ body {
 }
 
 .option-tray {
+    grid-column: 1/-1; /* Span all columns */
+    width: 100%;
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    margin-top: 1rem;
+    flex-flow: row;
+    justify-content: space-between;
 }
 
 button {
@@ -166,4 +177,22 @@ button:disabled{
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
+  }
+
+  @media screen and (max-height: 430px){
+    .container {
+        height: 100%;
+        display: grid;
+        gap: 0.5rem;
+        place-items: center;
+        grid-template-rows: 10% 60% 15% 5%;
+        grid-template-columns: auto auto .3fr;
+    }
+  }
+
+  @media screen and (orientation: portrait) {
+    .container {
+        height: 50%;
+        grid-template-rows: 10% 60% 15% 5%;
+    }
   }

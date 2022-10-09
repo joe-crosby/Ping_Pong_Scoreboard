@@ -2,11 +2,6 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        
-        <!-- This is not working. Why? -->
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta http-equiv="Pragma" content="no-cache" />
-        <meta http-equiv="Expires" content="0" />
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,12 +34,9 @@
             </div>
             <table id="games-won-table"></table>
            </div>
-        </div>
-        <div class="option-tray">
+           <div class="option-tray">
             <div>
                 <button id="new-game" class="block">New Game</button>
-                <input id="new-opponent-cb" type="checkbox">
-                <label for="new-opponent-cb">New Opponent</label>
             </div>
             <div class="flex-row">
                 <label class="flex-center" for="max-score" class="block">Winning Score:&nbsp;</label>
@@ -66,6 +58,13 @@
             <div class="flex-row">
                 <button id="switch-server">Switch Server</button>
             </div>
+          </div>
+          <div class="mr-auto">
+            <label class="font-small">
+                <input id="new-opponent-cb" type="checkbox">
+                New Opponent
+            </label>
+          </div>
         </div>
     </body>
 </html>
