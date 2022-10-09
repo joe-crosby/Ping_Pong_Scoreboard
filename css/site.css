@@ -143,7 +143,7 @@ button:disabled{
 #games-won-table {
     display: block;
     overflow-x: hidden;
-    height: 80%;
+    height: 83%;
 }
 
 #games-won-table td, tr {
@@ -188,11 +188,19 @@ button:disabled{
         grid-template-rows: 10% 60% 15% 5%;
         grid-template-columns: auto auto .3fr;
     }
+
+    #games-won-table {
+        height: 60%;
+    }
   }
 
   @media screen and (orientation: portrait) {
     .container {
         height: 50%;
         grid-template-rows: 10% 60% 15% 5%;
+    }
+
+    #games-won-table {
+        height: 60%;
     }
   }
