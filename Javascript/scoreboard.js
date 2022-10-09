@@ -18,6 +18,23 @@ function map(str){
     return caps;
 }
 
+let synth = null;
+let voices = [];
+let canSpeak = false;
+
+if ('speechSynthesis' in window) {
+    synth = window.speechSynthesis;
+    synth.onvoiceschanged = function() {
+        voices = synth.getVoices();
+        console.log(voices);	
+        canSpeak = true;
+    };
+}else{
+    // Speech Synthesis Not Supported
+    vocalPhrasingCb.style.visibility = 'hidden';
+    alert("Sorry, your browser doesn't support text to speech!");
+}
+
 let players = [new Player('Player 1'), new Player('Player 2')];
 
 let p1Cell = document.getElementById('player1-scorecell');
@@ -26,6 +43,7 @@ let p1Name = document.getElementById('player1-name');
 let p2Name = document.getElementById('player2-name');
 let newGameBtn = document.getElementById('new-game');
 let newOpponentCb = document.getElementById('new-opponent-cb');
+let vocalPhrasingCb = document.getElementById('vocal-phrasing-cb');
 let switchServerBtn = document.getElementById('switch-server');
 let maxScoreSelect = document.getElementById('max-score-drop-down');
 let maxServesSelect = document.getElementById('max-serves-drop-down');
@@ -134,7 +152,16 @@ function updateGamesWon(){
     }
 }
 
+let loserPhrases = ['p~ sucks!', 'p~, Maybe you should practice more', 'Better luck next time p~.', 'p~, were you even trying?'];
+let previousLoserPhrases = [];
+let winnerPhrases = ['Damn!!!! p~, Good job!', 'And the winner is,, p~!', 'p~ wins!', 'p~, you are the winner!!'];
+let previousWinnerPhrases = [];
+
 function setWinnerUI(){
+    let loserPhrase = '';
+    let winnerPhrase = '';
+    let winner = null;
+
     if (player1.score == maxScore){
         winner = player1;
         player1.gamesWon += 1;
@@ -150,14 +177,42 @@ function setWinnerUI(){
         p1Cell.classList.remove('winner');
     }
 
+    if (vocalPhrasingCb.checked && winner != null){
+        if (previousLoserPhrases.length == loserPhrases.length){
+            previousLoserPhrases = [];
+        }
+        
+        if (previousWinnerPhrases.length == winnerPhrases.length){
+            previousWinnerPhrases = [];
+        }
+        
+        do {
+            loserPhrase = loserPhrases[`${Math.floor(Math.random() * loserPhrases.length)}`];
+        } while(previousLoserPhrases.includes(loserPhrase));
+
+        previousLoserPhrases.push(loserPhrase);
+
+        do {
+            winnerPhrase = winnerPhrases[`${Math.floor(Math.random() * loserPhrases.length)}`];
+        } while(previousWinnerPhrases.includes(winnerPhrase));
+
+        previousWinnerPhrases.push(winnerPhrase);
+
+        let loser = winner == player1 ? player2 : player1;
+
+        speak(`${winnerPhrase.replace('p~', winner.name)},`);
+        speak(`${loserPhrase.replace('p~', loser.name)}`);
+    }
+
     updateGamesWon();
 }
 
 function player1Clicked(e) {
     e.preventDefault();
 
-    if (player1 != null)
+    if (player1 != null){
         playerClicked(player1);
+    }
 }
 
 function player2Clicked(e) {
@@ -428,4 +483,21 @@ function clearPlayers(){
     createGamesWon();
     reinitialize();
     focusNewPlayerTb();
+}
+
+function speak(text){
+    // Must be called from a user event.
+    if (!canSpeak){
+        return;
+    }
+
+    var speech = new SpeechSynthesisUtterance();
+    speech.voice = voices[1];
+    speech.volume = 1; // 0 to 1
+    speech.rate = 1; // 0.1 to 10
+    speech.pitch = 0; //0 to 2
+    speech.lang = 'en-US';
+    speech.voiceURI = "Google US English"
+    speech.text = text;
+    synth.speak(speech);
 }
