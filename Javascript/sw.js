@@ -1,6 +1,6 @@
 // (A) FILES TO CACHE
-const cName = "PingPongOffline",
-urlToCache = [
+const CACHE_NAME = "PingPongOffline";
+var urlsToCache = [
     'https://joe-crosby.github.io/Ping_Pong_Scoreboard/',
     'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Javascript/player.js',
     'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Javascript/scoreboard.js',
@@ -11,12 +11,16 @@ urlToCache = [
 ];
  
 // (B) CREATE/INSTALL CACHE
-self.addEventListener("install", (evt) => {
-  evt.waitUntil(
-    caches.open(cName)
-    .then((cache) => { return cache.addAll(urlToCache); })
-    .catch((err) => { console.error(err) })
-  );
+self.addEventListener('install', function(event) {
+    event.waitUntil(
+      caches.open(CACHE_NAME)
+        .then(function(cache) {
+          return cache.addAll(urlsToCache);
+        })
+        .catch(function(err) { 
+            console.error(err); 
+        })
+    );
 });
  
 // (C) LOAD FROM CACHE, FALLBACK TO NETWORK IF NOT FOUND
