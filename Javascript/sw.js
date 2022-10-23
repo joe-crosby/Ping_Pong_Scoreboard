@@ -7,7 +7,7 @@ var urlsToCache = [
     'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Images/favicon.ico',
     'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Images/winner.gif',
     'https://joe-crosby.github.io/Ping_Pong_Scoreboard/css/reset.css',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/css/site.css',
+    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/css/site.css'
 ];
  
 // (B) CREATE/INSTALL CACHE
