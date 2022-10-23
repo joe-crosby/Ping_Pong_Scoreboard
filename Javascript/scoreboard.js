@@ -38,7 +38,9 @@ if ('speechSynthesis' in window) {
 let players = [new Player('Player 1'), new Player('Player 2')];
 
 let p1Cell = document.getElementById('player1-scorecell');
+let p1UndoBtn = document.getElementById('player1-undo');
 let p2Cell = document.getElementById('player2-scorecell');
+let p2UndoBtn = document.getElementById('player2-undo');
 let p1Name = document.getElementById('player1-name');
 let p2Name = document.getElementById('player2-name');
 let newGameBtn = document.getElementById('new-game');
@@ -58,8 +60,20 @@ let totalScoresTable = document.getElementById('games-won-table');
 p1Cell.addEventListener('click', player1Clicked);
 p1Cell.addEventListener('touchStart', player1Clicked);
 
+p1Cell.firstChild.addEventListener('click', player1Clicked);
+p1Cell.firstChild.addEventListener('touchStart', player1Clicked);
+
+p1UndoBtn.addEventListener('click', player1Undo);
+p1UndoBtn.addEventListener('touchStart', player1Undo);
+
 p2Cell.addEventListener('click', player2Clicked);
 p2Cell.addEventListener('touchStart', player2Clicked);
+
+p2Cell.firstChild.addEventListener('click', player2Clicked);
+p2Cell.firstChild.addEventListener('touchStart', player2Clicked);
+
+p2UndoBtn.addEventListener('click', player2Undo);
+p2UndoBtn.addEventListener('touchStart', player2Undo);
 
 newGameBtn.addEventListener('click', newGame);
 newGameBtn.addEventListener('touchStart', newGame);
@@ -160,7 +174,7 @@ let previousWinnerPhrases = [];
 function setWinnerUI(){
     let loserPhrase = '';
     let winnerPhrase = '';
-    let winner = null;
+    winner = null;
 
     if (player1.score == maxScore){
         winner = player1;
@@ -212,14 +226,37 @@ function player1Clicked(e) {
 
     if (player1 != null){
         playerClicked(player1);
+        p1UndoBtn.disabled = false;
+        p2UndoBtn.disabled = true;
+    }
+}
+
+function player1Undo(e){
+    e.preventDefault();
+
+    if (player1 != null){
+        playerUndo(player1);
+        p1UndoBtn.disabled = true;
     }
 }
 
 function player2Clicked(e) {
     e.preventDefault();
 
-    if (player2 != null)
+    if (player2 != null){
         playerClicked(player2);
+        p2UndoBtn.disabled = false;
+        p1UndoBtn.disabled = true;
+    }
+}
+
+function player2Undo(e){
+    e.preventDefault();
+
+    if (player2 != null){
+        playerUndo(player2);
+        p2UndoBtn.disabled = true;
+    }
 }
 
 function playerClicked(player) {
@@ -234,6 +271,26 @@ function playerClicked(player) {
     toggleEnabled();
 
     setWinnerUI();
+}
+
+function playerUndo(player) {
+    if (gameIsOver())
+        return;
+
+    if (player.score > 0){
+        player.setscore(player.score -= 1);
+
+        // Change the current player back if necessary
+        if (totalServes % maxServes == 0){
+            changeServer();
+        }
+        
+        // Remove from the totalServes
+        totalServes -= 1;
+
+        updateScore();
+        toggleEnabled();
+    }
 }
 
 function updateScore(){
@@ -284,31 +341,31 @@ function newGame(e) {
     reinitialize();
 }
 
-function getRandomOpponent(){
-    if (players.length > 2){
-        let newOpponent = players.random();
-        while (newOpponent === player1 || newOpponent === player2 || (winner && newOpponent === winner)){
-            newOpponent = players.random();
-        }
+// function getRandomOpponent(){
+//     if (players.length > 2){
+//         let newOpponent = players.random();
+//         while (newOpponent === player1 || newOpponent === player2 || (winner && newOpponent === winner)){
+//             newOpponent = players.random();
+//         }
         
-        return newOpponent;
-    }
-    else if (players.length > 1) {
-        let newOpponent = players.random();
-        while (newOpponent === player1 || newOpponent === player2 + newOpponent === player1){
-            newOpponent = players.random();
-        }
+//         return newOpponent;
+//     }
+//     else if (players.length > 1) {
+//         let newOpponent = players.random();
+//         while (newOpponent === player1 || newOpponent === player2 + newOpponent === player1){
+//             newOpponent = players.random();
+//         }
         
-        return newOpponent;
-    }
+//         return newOpponent;
+//     }
 
-    return null;
-}
+//     return null;
+// }
 
 function shufflePlayers(){
     if (newOpponentCb.checked && players.length > 2){
         let newOpponent = players.random();
-        while (newOpponent === player1 || newOpponent === player2 || (winner && newOpponent === winner)){
+        while ((winner && newOpponent === winner) || newOpponent === player1 || newOpponent === player2){
             newOpponent = players.random();
         }
         

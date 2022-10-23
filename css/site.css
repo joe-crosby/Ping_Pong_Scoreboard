@@ -29,7 +29,7 @@ body {
     display: grid;
     gap: .5rem;
     place-items: center;
-    grid-template-rows: 5% 80% 8%;
+    grid-template-rows: 5% 5% 70% 8% 4%;
     grid-template-columns: 2fr 2fr 1fr;
 }
 
@@ -124,6 +124,11 @@ button:disabled{
     background-color: #5d6860;
 }
 
+.undoBtn { 
+    height: auto;
+    width: auto;
+}
+
 .deleteUserBtn {
     padding: 0%;
     height: 1.5rem;
@@ -191,7 +196,7 @@ button:disabled{
         display: grid;
         gap: 0.5rem;
         place-items: center;
-        grid-template-rows: 10% 60% 15% 5%;
+        grid-template-rows: 10% 7% 50% 15% 5%;
         grid-template-columns: 2fr 2fr 1fr;
     }
 
@@ -203,7 +208,7 @@ button:disabled{
   @media screen and (orientation: portrait) {
     .container {
         height: 50%;
-        grid-template-rows: 10% 60% 15% 5%;
+        grid-template-rows: 10% 7% 50% 15% 5%;
     }
 
     #games-won-table {
