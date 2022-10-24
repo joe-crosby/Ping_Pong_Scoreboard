@@ -1,13 +1,13 @@
 // (A) FILES TO CACHE
 const CACHE_NAME = "PingPongOffline";
 var urlsToCache = [
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Javascript/player.js',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Javascript/scoreboard.js',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Images/favicon.ico',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Images/winner.gif',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/css/reset.css',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/css/site.css'
+    '/',
+    '/Javascript/player.js',
+    '/Javascript/scoreboard.js',
+    '/Images/favicon.ico',
+    '/Images/winner.gif',
+    '/css/reset.css',
+    '/css/site.css'
 ];
  
 // (B) CREATE/INSTALL CACHE
