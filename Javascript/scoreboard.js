@@ -45,7 +45,6 @@ let p1Name = document.getElementById('player1-name');
 let p2Name = document.getElementById('player2-name');
 let newGameBtn = document.getElementById('new-game');
 let newOpponentCb = document.getElementById('new-opponent-cb');
-let vocalPhrasingCb = document.getElementById('vocal-phrasing-cb');
 let switchServerBtn = document.getElementById('switch-server');
 let maxScoreSelect = document.getElementById('max-score-drop-down');
 let maxServesSelect = document.getElementById('max-serves-drop-down');
@@ -166,14 +165,7 @@ function updateGamesWon(){
     }
 }
 
-let loserPhrases = ['p~ sucks!', 'p~, Maybe you should practice more', 'Better luck next time p~.', 'p~, were you even trying?'];
-let previousLoserPhrases = [];
-let winnerPhrases = ['Damn!!!! p~, Good job!', 'And the winner is,, p~!', 'p~ wins!', 'p~, you are the winner!!'];
-let previousWinnerPhrases = [];
-
 function setWinnerUI(){
-    let loserPhrase = '';
-    let winnerPhrase = '';
     winner = null;
 
     if (player1.score == maxScore){
@@ -189,33 +181,6 @@ function setWinnerUI(){
         p2Cell.classList.add('winner');
         p2Cell.children[0].innerHTML = "";
         p1Cell.classList.remove('winner');
-    }
-
-    if (vocalPhrasingCb.checked && winner != null){
-        if (previousLoserPhrases.length == loserPhrases.length){
-            previousLoserPhrases = [];
-        }
-        
-        if (previousWinnerPhrases.length == winnerPhrases.length){
-            previousWinnerPhrases = [];
-        }
-        
-        do {
-            loserPhrase = loserPhrases[`${Math.floor(Math.random() * loserPhrases.length)}`];
-        } while(previousLoserPhrases.includes(loserPhrase));
-
-        previousLoserPhrases.push(loserPhrase);
-
-        do {
-            winnerPhrase = winnerPhrases[`${Math.floor(Math.random() * loserPhrases.length)}`];
-        } while(previousWinnerPhrases.includes(winnerPhrase));
-
-        previousWinnerPhrases.push(winnerPhrase);
-
-        let loser = winner == player1 ? player2 : player1;
-
-        speak(`${winnerPhrase.replace('p~', winner.name)},`);
-        speak(`${loserPhrase.replace('p~', loser.name)}`);
     }
 
     updateGamesWon();
