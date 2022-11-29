@@ -154,7 +154,7 @@ button:disabled{
 #games-won-table {
     display: block;
     overflow-x: hidden;
-    height: 83%;
+    height: 80%;
 }
 
 #games-won-table td, tr {
@@ -201,7 +201,7 @@ button:disabled{
     }
 
     #games-won-table {
-        height: 60%;
+        height: 50%;
     }
   }
 
@@ -212,6 +212,6 @@ button:disabled{
     }
 
     #games-won-table {
-        height: 60%;
+        height: 50%;
     }
   }
