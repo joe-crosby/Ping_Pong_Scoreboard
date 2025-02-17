@@ -1,5 +1,5 @@
 const version = 1;
-const appName = "DartScoreboarPingPongOfflinedOffline";
+const appName = "PingPongOffline";
 const CACHE_NAME = `PingPongOfflineV${version}`;
 
 var cacheItemUrls = [
