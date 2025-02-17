@@ -1,6 +1,6 @@
 const version = 1;
 const appName = "PingPongOffline";
-const CACHE_NAME = `PingPongOfflineV${version}`;
+const CACHE_NAME = `${appName}V${version}`;
 
 var cacheItemUrls = [
     './',
