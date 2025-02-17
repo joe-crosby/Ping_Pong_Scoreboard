@@ -1,45 +1,82 @@
-const CACHE_NAME = "PingPongOffline";
+const version = 1;
+const CACHE_NAME = `PingPongOffline${version}`;
 
-var urlsToCache = [
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Javascript/player.js',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Javascript/scoreboard.js',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Images/favicon.ico',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/Images/winner.gif',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/css/reset.css',
-    'https://joe-crosby.github.io/Ping_Pong_Scoreboard/css/site.css'
+var cacheItemUrls = [
+    './',
+    './index.html',
+    './Javascript/player.js',
+    './Javascript/scoreboard.js',
+    './Images/favicon.ico',
+    './Images/winner.gif',
+    './css/reset.css',
+    './css/site.css'
 ];
  
+const addResourceUrlsToCache = async (items) => {
+  const cache = await caches.open(CACHE_NAME);
+  await cache.addAll(items).catch((err) => {
+    console.error(err);
+  });;
+};
+
+const putInCache = async (request, response) => {
+  const cache = await caches.open(CACHE_NAME);
+  await cache.put(request, response);
+};
+
+const deleteCache = async (key) => {
+  await caches.delete(key);
+};
+
+const deleteOldCaches = async () => {
+  const cache = await caches.open(CACHE_NAME);
+  const cachedKeys = await cache.keys();
+  const cachesToDelete = cachedKeys.filter((key) => key != CACHE_NAME);
+  await Promise.all(cachesToDelete.map(deleteCache));
+}
+
+
 // Create the cache on install
 self.addEventListener('install', function(event) {
     event.waitUntil(
-      caches.open(CACHE_NAME)
-        .then(function(cache) {
-          return cache.addAll(urlsToCache);
-        })
-        .catch(function(err) { 
-            console.error(err); 
-        })
+      addResourceUrlsToCache(cacheItemUrls)
     );
 });
  
-// Network first, fall back to cache. This will keep the cache up to date.
-self.addEventListener('fetch', (event) => {
-  // Check if this is a navigation request
-  if (event.request.mode === 'navigate') {
-    // Open the cache
-    event.respondWith(caches.open(CACHE_NAME).then((cache) => {
-      // Go to the network first
-      return fetch(event.request.url).then((fetchedResponse) => {
-        cache.put(event.request, fetchedResponse.clone());
-
-        return fetchedResponse;
-      }).catch(() => {
-        // If the network is unavailable, get
-        return cache.match(event.request.url);
-      });
-    }));
-  } else {
-    return;
+const cacheFirst = async ({ request, fallbackUrl }) => {
+  // Try to get the resource from the cache
+  const responseFromCache = await caches.match(request);
+  if (responseFromCache) {
+    return responseFromCache;
   }
+
+  // Try to get the resource from the network
+  try {
+    const responseFromNetwork = await fetch(request.clone());
+    // response may be used only once
+    // we need to save clone to put one copy in cache
+    // and serve second one
+    putInCache(request, responseFromNetwork.clone());
+    return responseFromNetwork;
+  } catch (error) {
+    const fallbackResponse = await caches.match(fallbackUrl);
+    if (fallbackResponse) {
+      return fallbackResponse;
+    }
+
+    return new Response('Network error happened', {
+      status: 408,
+      headers: { 'Content-Type': 'text/plain' },
+    });
+  }
+};
+
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    cacheFirst({
+      request: event.request,
+      fallbackUrl: './index.html',
+    })
+  );
 });
