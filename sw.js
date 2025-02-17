@@ -34,12 +34,15 @@ const deleteOldCaches = async () => {
   await Promise.all(cachesToDelete.map(deleteCache));
 }
 
-
 // Create the cache on install
 self.addEventListener('install', function(event) {
     event.waitUntil(
       addResourceUrlsToCache(cacheItemUrls)
     );
+});
+
+self.addEventListener('activate', function(event) {
+  event.waitUntil(deleteOldCaches());
 });
  
 const cacheFirst = async ({ request, fallbackUrl }) => {
